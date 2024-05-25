@@ -27,6 +27,8 @@ class IpAuth(BaseAuthentication):
             times = obj.times
         else:
             times = obj.times
+        print("times",times)
+
         if times <= 0:
 
             exist = models.YtwKey.objects.filter(key=ytwkey).exists()
@@ -44,6 +46,9 @@ class YtwKeyAuth(BaseAuthentication):
         """需要再请求头中添加一个ytwkey"""
         ytwkey = request.headers.get("ytwkey")
         print(ytwkey)
+        if not ytwkey:
+            return
+
         instance = models.YtwKey.objects.filter(key=ytwkey).first()
         print("instance.times",instance.times)
 
